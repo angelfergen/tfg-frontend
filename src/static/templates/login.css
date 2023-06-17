@@ -1,0 +1,22 @@
+* {
+    font-size: 28px;
+  }
+  /*Esa regla lo que hace es que todos los elementos
+  de toda la página se hagan grandes*/
+
+.Login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+Button {
+    margin: 15px;
+}
+
+#contraseña {
+    margin: 7px;
+}

@@ -1,0 +1,15 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas con ancho igual */
+    grid-gap: 20px; /* Espacio entre las cards */
+    margin: 12px;
+  }
+img.card-img-top {
+    width: 200px;
+    height: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px
+
+}

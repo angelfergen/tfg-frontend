@@ -1,0 +1,49 @@
+#imagen_dispositivo {
+    float: left;
+    margin-left: 150px; /* Esto es para agregar un poco de espacio entre la imagen y la información */
+  }
+  
+  #info_general {
+    overflow: hidden; /* Esto es necesario para evitar que el contenido flote alrededor de la imagen */
+    margin-top: 150px;
+    text-align: justify;
+    padding-left: 200px;
+  }
+
+  #info_adicional {
+    overflow: hidden; /* Esto es necesario para evitar que el contenido flote alrededor de la imagen */
+    text-align: justify;
+    padding-left: 200px;
+  }
+
+  .botones_de_accion{
+    margin-right: 0px;
+    display: flex;
+    align-items: center;
+  }
+
+  .index{
+    margin-top: 15px;
+  }
+
+  #modificar{
+    margin-top: 15px;
+  }
+
+  #volver{
+    margin-top: 50px;
+  }
+  img{
+    width: 511.99px;
+    height: 511.99px;
+  }
+  
+  #guardar{
+    margin-top: 50px;
+  }
+
+.botones_de_accion Button{
+  width: 305px;
+  height: 65px;
+  margin: 15px
+}
