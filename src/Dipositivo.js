@@ -12,33 +12,14 @@ export default function Dispositivo(props) {
   const [puertos, setPuertos] = useState();
 
   const USE_SERVER = CONFIG.use_server;
-  /*
-  const datos_pruebas_conocidos = {
-    "94:6a:b0:5c:3b:29": {
-      "type": "Router",
-      "owner": "Pruden",
-      "location": "casa",
-      "allowed": "True"
-    },
-    "18:60:24:33:42:fa": {
-      "type": "Impresora",
-      "owner": "Angel",
-      "location": "casa",
-      "allowed": "True"
-    },
-    "00:00:00:00": {
-      "type": "blabla",
-      "owner": "angel",
-      "location": "bellodrama",
-      "allowed": "true"
-    }
-  }
-  */
 
-
-  const dispositivosFiltrados = Object.keys(props.conocidos[0]).includes(props.dispositivos[dispositivoId].mac)
+  let dispositivosFiltrados = null;
+    if (dispositivoId !== -1) {
+       dispositivosFiltrados = Object.keys(props.conocidos[0]).includes(props.dispositivos[dispositivoId].mac)
     ? props.conocidos[0][props.dispositivos[dispositivoId].mac]
     : null;
+    }
+    
 
   const getImagen = () => {
     return dispositivosFiltrados ? dispositivosFiltrados.type.toLowerCase() : "desconocido";
@@ -82,12 +63,12 @@ export default function Dispositivo(props) {
   }
   const modificar = () => {
     props.setFormulario(false);
+    props.setDispositivoId(props.dispositivos[dispositivoId].mac)
     props.setformularioConocido(true);
     props.setListaDispositivo(false)
     props.setLista(false)
     props.setListaConocidos(false)
-    console.log("Aqui tienes "+ props.dispositivos[dispositivoId].mac)
-    props.setDispositivoId(props.dispositivos[dispositivoId].mac)
+    console.log("Aqui tienes la mac que se va a modificar "+ props.dispositivos[dispositivoId].mac)
 }
   const volver = () => {
     props.setLista(true)
@@ -97,27 +78,38 @@ export default function Dispositivo(props) {
     props.setformularioConocido(false);
   }
 
+
   return (
     <div>
-      {props.dispositivos && (
+      {console.log("TODO CORRECTO")}
+      { dispositivoId === -1 ? <div>
+            <p id="titulo">No hay Información disponible de este dispositivo, ya que está desconectado</p>
+            <Button className="index" id="volver" onClick={() => volver()}>Volver</Button>
+            </div>
+             :
+      props.dispositivos && (
         <div>
           <h3>Hola, aquí tienes información de este dispositivo {props.dispositivos[dispositivoId].hostnames[0]?.name}</h3>
           <img id="imagen_dispositivo" src={require(`./static/images/${getImagen()}.png`)} />
-          <h5>La dirección IP {props.dispositivos[dispositivoId].addresses.ipv4}</h5>
-          <h5>La dirección MAC {props.dispositivos[dispositivoId].mac}</h5>
-          <h5>El vendedor {props.dispositivos[dispositivoId].vendor}</h5>
-          <h5>El nombre en la red {props.dispositivos[dispositivoId].hostnames[0]?.name}</h5>
-          <h5>El tipo de dispositivo {getImagen()}</h5>
+          <div id="info_general">
+            <p id="titulo">Dirección IP:<b>{props.dispositivos[dispositivoId].addresses.ipv4}</b></p>
+            <p id="dir_mac">Dirección MAC <b> {props.dispositivos[dispositivoId].mac}</b></p>
+            <p id="hostname"> Nombre en la Red: <b>{props.dispositivos[dispositivoId].hostnames[0]?.name}</b></p>
+            <p id="vendor">Vendedor: <b>{props.dispositivos[dispositivoId].vendor}</b></p>
+          </div>
           {dispositivosFiltrados ? (
             <div id="conocido">
-              <p>Owner: {dispositivosFiltrados.owner}</p>
-              <p>Location: {dispositivosFiltrados.location}</p>
-              <p>Allowed: {dispositivosFiltrados.allowed}</p>
-              <p>Type: {dispositivosFiltrados.type}</p>
+              <div id="info_adicional">
+              <p>Dueño: {dispositivosFiltrados.owner}</p>
+              <p>Ubicación: {dispositivosFiltrados.location}</p>
+              <p>Tipo: {dispositivosFiltrados.type}</p>
+              </div>
 
               <div className="botones_de_accion">
                     <Button className="index" onClick={() => volver()}>Volver</Button>
                     <Button className="btn btn-secondary" id="modificar" type="submit" onClick={() => modificar()}>Modificar</Button>
+                    {/*<Link to={"/conocidos/modificar/"+ dispositivos[dispositivoId].mac}><Button className="btn btn-secondary" id="modificar" type="submit">Modificar Dispositivo</Button></Link>*/}
+
                     <form method="post" action={CONFIG.server_url_eliminar+transformarDirMac(props.dispositivos[dispositivoId].mac)}>
                         <Button className="btn btn-danger" id="borrar" type="submit">Borrar Dispositivo</Button>
                     </form>

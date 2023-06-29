@@ -23,13 +23,12 @@ export default function Habitaciones (props){
         -otra estancia
     */
     
-    //const [selector, setSelector] = useState (null);
-    //const [estancia, setEstancia] = useState (false);
-    //const [habitaciones2, setHabitaciones2] = useState (true);
-
+        //const [selector, setSelector] = useState (null);
+        //const [estancia, setEstancia] = useState (false);
+        //const [habitaciones2, setHabitaciones2] = useState (true);
 
         //const dispositivos = props.dipositivos;
-        const datos_pruebas_todos = [
+        /*const datos_pruebas_todos = [
             {
                 "hostnames": [
                     {
@@ -132,10 +131,10 @@ export default function Habitaciones (props){
                 },
                 "mac": "a0:9f:10:1a:bd:fc"
             }
-        ];
-        const dispositivos = datos_pruebas_todos;
+        ];*/
+        //const dispositivos = datos_pruebas_todos;
         
-        const datos_pruebas_conocidos = {
+        /*const datos_pruebas_conocidos = {
               "94:6a:b0:5c:3b:29": {
                   "type": "Router",
                   "owner": "Pruden",
@@ -154,26 +153,19 @@ export default function Habitaciones (props){
                   "location": "otra estancia",
                   "allowed": "true"
               }
-          }
+          }*/
           
+
         const conocidos = props.conocidos;
         console.log("ESTO ES PROPS "+JSON.stringify(props.conocidos));
-        //console.log("Esto es conocidos "+JSON.stringify(conocidos))
-        //const conocidos = datos_pruebas_conocidos;
-        //const direccionesMAC = props.direccionesMAC;
+
     
         //Esto lo hago para ver cuales son todas las habitaciones que hay
         const array0 = Object.keys(conocidos[0]).map((direccion, numero) => { 
             console.log(direccion);
             return conocidos[0][direccion]?.location;
           });
-          
-          const array02 = Object.keys(conocidos[0]).map((direccion, numero) => { 
-            console.log(direccion);
-            return conocidos[0][direccion]?.location;
-          });
-          console.log("array02", array02);
-          
+             
           const array1 = array0.reduce((previousValue, currentValue) => {
             if (!previousValue.includes(currentValue)) {
               return [...previousValue, currentValue];
@@ -183,19 +175,17 @@ export default function Habitaciones (props){
           
         
         console.log("AQUI TENEMOS ARRAY1 "+array1);
-        //console.log("Aqui tenemos las habitaciones " +array1);
-
 
         function getImagen(item) {
             const imagen = item; // Reemplaza espacios en blanco con guiones bajos
             return imagen;
           }
         
-          const verDispositivos = (item) => {
-            console.log("HOLA, FUNCIONA ESTANCIAS"); // Imprimir el valor actual de estancia
-            props.setHabitaciones(false);
-            props.setEstancia(item); // Cambiar el valor de estancia después de actualizar props.setHabitaciones
-          }
+        const verDispositivos = (item) => {
+        console.log("HOLA, FUNCIONA ESTANCIAS"); // Imprimir el valor actual de estancia
+        props.setHabitaciones(false);
+        props.setEstancia(item); // Cambiar el valor de estancia después de actualizar props.setHabitaciones
+        }
           
         function volver () {
             props.setEstancia(false);
@@ -207,24 +197,18 @@ export default function Habitaciones (props){
             props.setformularioConocido(false);
         }
           
-        array1.map((item,number)=>{
-            //console.log("Este es el item : "+item+" con la imagen "+ getImagen(item))
-        })
     return(
         <div>
                     {props.habitaciones && <div><div id='habitaciones' className="card-grid">
                     {array1.map((item, number) => 
-                    //console.log(`./static/images/${getImagen(item)}.png`)
                     (
                         <Card className="unproducto" key={number}>
                             <Card.Img
                             variant="top"
                             src={require(`./static/images/${getImagen(item)}.png`)}
-                            //src={require(`./static/images/salon.png`)}
                     />
                             <Card.Body>
                             <Card.Title>{item}</Card.Title>
-                            {/*<Card.Text>{item.description}</Card.Text>*/}
                             <Button variant="primary" className="show"  onClick={() => verDispositivos(item)}>
                                 Ver Dispositivos
                             </Button>

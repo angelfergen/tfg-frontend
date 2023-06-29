@@ -332,10 +332,12 @@ callServerCalendario();
         setLista={setLista}
         setListaConocidos={setListaConocidos}
         setListaDispositivo={setListaDispositivo}
-        setHabitaciones={setHabitaciones}
         setFormulario={setFormulario}
         setformularioConocido = {setformularioConocido}
+        setHabitaciones={setHabitaciones}
+        setEstancia={setEstancia}
         setVistaCalendario = {setVistaCalendario}
+        onLogout ={props.onLogout}
 />
       {loading ? <div class="spinner-cajita">
                     <div class="spinner-border" role="status">
@@ -431,6 +433,8 @@ callServerCalendario();
                                 setListaDispositivo={setListaDispositivo}
                                 setFormulario={setFormulario}
                                 setformularioConocido = {setformularioConocido}
+                                conocidos = {conocidos}
+                                dispositivos = {dispositivos}
                     />
                        </div>
         }
@@ -443,6 +447,7 @@ callServerCalendario();
                                             setListaDispositivo={setListaDispositivo}
                                             setFormulario={setFormulario}
                                             setformularioConocido = {setformularioConocido}
+                                            conocidos = {conocidos}
                     />
                                 </div>
 

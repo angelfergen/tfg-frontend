@@ -1,10 +1,12 @@
-import {Routes,  Route} from "react-router-dom";
+import {Routes,  Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Lista from "./Lista";
 import Formulario_Conocidos from "./Formulario_Conocidos";
 import Login from './Login';
 import Dispositivo from "./Dipositivo";
 import Conocidos from "./Conocidos";
+import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -22,6 +24,9 @@ function App() {
   const [dispositivos, setDispositivos]=useState()
   const [conocidos, setConocidos]=useState()
   const [direccionesMac, setDireccionesMac] = useState ();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
   //const [loading,setLoading]= useState(true);
   const USE_SERVER = CONFIG.use_server;
 
@@ -242,15 +247,28 @@ function App() {
     console.log(conocidos)
   }, []);
 
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
 
+  const logIn = () => {
+    setIsLoggedIn(true);
+  };
+
+  const logOut = () => {
+    setIsLoggedIn(false);
+  };
   return (
     <div className="App">
-        <Routes>
-            <Route exact path="/" element={<Login />}/>
-            <Route exact path="/lista" element={<Lista dispositivos={dispositivos} conocidos={conocidos} direccionesMac={direccionesMac}/>}/>
-
-      </Routes>  
-  </div>
+      <Routes>
+        <Route exact path="/" element={<Login onLogin={logIn} />} />
+        {isLoggedIn ? (
+          <Route exact path="/lista" element={<Lista onLogout={logOut} />} />
+        ) : null}
+      </Routes>
+    </div>
   );
 }
 

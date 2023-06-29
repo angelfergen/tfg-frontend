@@ -1,26 +1,22 @@
 import { CNavbar, CNavbarBrand, CNavbarNav, CNavbarToggler, CContainer, CCollapse, CNavLink, CButton, CForm } from '@coreui/react';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './navbar.css'
 
 export default function Navbar (props){
     const [visible, setVisible] = useState(false)
     const navigate = useNavigate();
-    //props.lista
-    //props.listaConocidos
-    //props.listaDispositivo
-    //props.setHabitaciones
-    //props.setVistaCalendario
+
 
     const pageHome = () => {
         props.setLista(true);
         props.setListaConocidos(false);
         props.setListaDispositivo(false);
-        props.setHabitaciones(false);
         props.setFormulario(false)
         props.setformularioConocido(false)
+        props.setHabitaciones(false);
+        props.setEstancia(false);
         props.setVistaCalendario(false)
-
     };
     const pageConocidos = () => {
         props.setLista(false);
@@ -30,8 +26,7 @@ export default function Navbar (props){
         props.setFormulario(false)
         props.setformularioConocido(false)
         props.setVistaCalendario(false)
-
-
+        props.setEstancia(false);
     };
     const pageCalendario = () => {
         props.setLista(false);
@@ -41,7 +36,7 @@ export default function Navbar (props){
         props.setFormulario(false)
         props.setformularioConocido(false)
         props.setVistaCalendario(true)
-
+        props.setEstancia(false);
     };
     const pageHabitaciones = () => {
         props.setLista(false);
@@ -51,11 +46,17 @@ export default function Navbar (props){
         props.setFormulario(false)
         props.setformularioConocido(false)
         props.setVistaCalendario(false)
-
+        props.setEstancia(false);
     };
-    const cerrarSesion = () =>{
-      navigate("/")
-    }
+    const controlarCerrarSesion = () => {
+      // Llama a la función `onLogout` solo si está definida
+      if (typeof props.onLogout === 'function') {
+        props.onLogout();
+      }
+      // Solo necesitas esta línea para redireccionar a la página de inicio de sesión
+      navigate("/");
+    };
+    
 
     return (
         <>
@@ -77,7 +78,7 @@ export default function Navbar (props){
                   <CNavLink onClick={() => pageCalendario()}>Calendario</CNavLink>
                   
                   <CForm className="d-flex">
-                    <CButton type="submit" color="danger" variant="outline" onClick={cerrarSesion}>
+                    <CButton type="submit" color="danger" variant="outline" onClick={controlarCerrarSesion}>
                     Logout
                     </CButton>
                 </CForm>

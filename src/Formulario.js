@@ -24,7 +24,7 @@ Tipos de dispositivos que puede haber:
     const dispositivoId = props.numero;
     //let { dispositivoId } = useParams();
 
-    //const dispositivos = props.dipositivos;
+    const dispositivos = props.dipositivos;
     const datos_pruebas_todos = [
         {
             "hostnames": [
@@ -148,15 +148,22 @@ Tipos de dispositivos que puede haber:
             "allowed": "true"
         }
     }
-    const dispositivos = datos_pruebas_todos;
-    //const conocidos = props.conocidos;
-    const conocidos = datos_pruebas_conocidos;
+    //const dispositivos = datos_pruebas_todos;
+    const conocidos = props.conocidos;
+    //const conocidos = datos_pruebas_conocidos;
 
     const [selector, setSelector] = useState("desconocido");
     const [allowed,setAllowed] = useState();
     //const [type,setType] = useState();
     const [owner,setOwner] = useState();
     const [location,setLocation] = useState();
+
+    console.log("Aqui los dispositivos " + JSON.stringify(props.dispositivos))
+    console.log("Aqui el dispositivos " + JSON.stringify(props.dispositivos[props.numero]))
+    console.log("Aqui la mac " + JSON.stringify(props.dispositivos[props.numero]["mac"]))
+    console.log("Aqui el hostname " + JSON.stringify(props.dispositivos[props.numero]["hostnames"][0]["name"]))
+
+
 
 
 
@@ -212,7 +219,7 @@ Tipos de dispositivos que puede haber:
 
     return(
         <div>
-                <h3>Hola, rellene el formulario para guardar el dispositivo {dispositivos[dispositivoId].hostnames[0]?.name}</h3>
+                <h3>Hola, rellene el formulario para guardar el dispositivo {props.dispositivos[props.numero]["hostnames"][0]["name"]}</h3>
             <div className='container'>
                 <img id="imagen_dispositivo" src={require(`./static/images/${selector}.png`)}/>
             
@@ -237,12 +244,11 @@ Tipos de dispositivos que puede haber:
 
                         <Form.Group className="mb-3">
                         <Form.Label>Dirección MAC:</Form.Label>
-                        <Form.Control type="text" name="mac_address" value={dispositivos[dispositivoId]?.mac}  />
+                        <Form.Control type="text" name="mac_address" value={props.dispositivos[props.numero]["mac"]}  />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                         <Form.Label>Propietario:</Form.Label>
-                        {/*<Form.Control type="text" name="owner"/>*/}
                         <Form.Select name="owner" onChange={e => dueño(e.target.value)}>
                             <option value="Mama">Mama</option>
                             <option value="Hermano">Hermano</option>
@@ -253,7 +259,6 @@ Tipos de dispositivos que puede haber:
 
                         <Form.Group className="mb-3">
                         <Form.Label>Ubicación:</Form.Label>
-                        {/*<Form.Control type="text" name="location" />*/}
                         <Form.Select name="location" onChange={e => ubicacion(e.target.value)}>
                             <option value="atico">Atico</option>
                             <option value="cocina">Cocina</option>

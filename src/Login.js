@@ -4,7 +4,7 @@ import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import "./static/templates/login.css"
 
-const Login = () => {
+const Login = (props) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -30,6 +30,7 @@ const Login = () => {
       // Si la respuesta del servidor es exitosa, puedes realizar alguna acción, como redireccionar a otra página
       console.log('Inicio de sesión exitoso');
       console.log('Token de acceso:', response.data.accessToken);
+      props.onLogin();
       navigate('/lista');
     } catch (error) {
       // Si hay un error en la respuesta del servidor, muestra el mensaje de error

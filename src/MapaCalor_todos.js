@@ -28,7 +28,7 @@ export default function MapaCalor_todos(props) {
         const sumaPorDia = {};
     
         for (const fecha in data) {                 //El for que me va a recorrer todos los DÍAS
-            for (const hora in data[fecha]) {   //El for que me va a recorrer todas las HORAS
+            for (const hora in data[fecha]) {                     //El for que me va a recorrer todas las HORAS
                 const objetos = data[fecha][hora];  //Me creo un objeto donde voy a ir almacenando toda la información relativa a cada hora
         
                 for (const intervalo of objetos) {     //4 Objetos de cada 15 minutos

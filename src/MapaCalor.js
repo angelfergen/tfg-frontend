@@ -25,9 +25,6 @@ export default function MapaCalor(props) {
           try {
             const response = await fetch(CONFIG.server_url_history + currentMonthString);
             const data = await response.json(); 
-            //console.log("hola aquí está data")
-            console.log("la cosa ha ido bien")
-            console.log(data) 
             setCalendario(data);
           } catch (error) {
             console.log(error);
@@ -36,15 +33,11 @@ export default function MapaCalor(props) {
         } else {
             setCalendario("vaya no ha funcionado");
         console.log("la cosa ha ido mal")
-
-          console.log(calendario)
         }
       }
 
     useEffect(() =>{
     callServer();
-    //console.log("hola aquí está resultado")
-    //console.log(calendario);
     }, [calendario]);
     //----------------------------------------------
 
@@ -53,16 +46,15 @@ export default function MapaCalor(props) {
 
     //Lo que va a hacer es analizarme todo el array de objeto para la hora 0, si encuentra un objeto con la clave de la dirección mac 
     //determinada, le suma el valor a lo anterior
+
     const suma = (array) =>{
         let sum=0;
-        array.forEach(obj => {
-            //const value = obj["f8:8f:07:42:7f:e6"];
-            const value = obj[props.direccionMac];
+        array.forEach(dispositivo => {
+            const value = dispositivo[props.direccionMac];
             if (typeof value === "number") {
                 sum += value;
             }
             });
-            //console.log("La suma de los números para la clave '94:6a:b0:5c:3b:29' es:", sum);
 
         return sum;
     }
@@ -101,7 +93,7 @@ export default function MapaCalor(props) {
         text: 'Minutos Conectados'
     },
     xaxis: {
-        categories: ['Hora 0', 'Hora 1', 'Hora 2', 'Hora 3', 'Hora 4', 'Hora 5', 'Hora 6', '7', 'Hora 8', 'Hora 9', 'Hora 10', 'Hora 11', 'Hora 12', 'Hora 13', 'Hora 14', 'Hora 15', 'Hora 16', 'Hora 17', 'Hora 18', 'Hora 19', 'Hora 20', 'Hora 21', 'Hora 22', 'Hora 23']
+        categories: ['Hora 0', 'Hora 1', 'Hora 2', 'Hora 3', 'Hora 4', 'Hora 5', 'Hora 6', 'Hora 7', 'Hora 8', 'Hora 9', 'Hora 10', 'Hora 11', 'Hora 12', 'Hora 13', 'Hora 14', 'Hora 15', 'Hora 16', 'Hora 17', 'Hora 18', 'Hora 19', 'Hora 20', 'Hora 21', 'Hora 22', 'Hora 23']
     }
     };
 

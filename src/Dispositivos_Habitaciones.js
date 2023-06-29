@@ -1,20 +1,11 @@
 
 import Card from 'react-bootstrap/Card';
-import { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import './habitaciones.css'
-import Dispositivo from './Dipositivo';
 
 
 export default function Dispositivos_Habitaciones(props){
-    //props.conocidos
-    //props.setEstancia
-    //props.estancia
-    //props.setHabitaciones
-    //dispositivoId=props.dispositivoId;
-    //setDispositivoId=props.setDispositivoId;
-    //const [dispositivoId, setDispositivoId] = useState(null);
-    //props.conocidos)
+
     const datosFiltrados = Object.keys(props.conocidos[0])
                              .filter((key) => {
                                 console.log(props.conocidos[0][key].location)
@@ -36,12 +27,12 @@ export default function Dispositivos_Habitaciones(props){
     }
 
     const verDispositivo = (direccion_dispositivo) =>{
+        console.log("Esta es la mac "+ direccion_dispositivo)
+        console.log("El index "+props.dispositivos.findIndex(item => item.mac === direccion_dispositivo))
         const posicion = props.dispositivos.findIndex(item => item.mac === direccion_dispositivo)
-        //const posicion = Object.keys(props.conocidos).findIndex((indice) => indice === direccion_dispositivo);
         console.log(posicion)
         props.setEstancia(false);
         props.setHabitaciones(false);
-        //setListaDispositivo(true);
         props.setDispositivoId(posicion);
         props.setListaDispositivo(true);
         }
@@ -50,8 +41,6 @@ export default function Dispositivos_Habitaciones(props){
         <div>
         <div className="card-grid">
             {Object.keys(datosFiltrados).map((direccion, numero) => 
-                                //console.log(`./static/images/${getImagen(item)}.png`)
-                                //datosFiltrados[direccion]?.type
                                 (
                                     <Card className="unproducto" key={numero.toString()}>
                                         <Card.Img

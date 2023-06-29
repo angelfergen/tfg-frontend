@@ -25,7 +25,7 @@ Tipos de dispositivos que puede haber:
 const dispositivoId = props.dispositivoId;
 //let { dispositivoId } = useParams();
 
-//const dispositivos = props.dipositivos;
+const dispositivos = props.dipositivos;
 const datos_pruebas_todos = [
     {
         "hostnames": [
@@ -150,14 +150,25 @@ const datos_pruebas_conocidos = {
         "allowed": "true"
     }
 }
-const dispositivos = datos_pruebas_todos;
-//const conocidos = props.conocidos;
-const conocidos = datos_pruebas_conocidos;
+//const dispositivos = datos_pruebas_todos;
+const conocidos = props.conocidos[0];
+//const conocidos = datos_pruebas_conocidos;
+//console.log("Aqui tenemos la imagen "+conocidos[dispositivoId].type.toString().toLowerCase())
+console.log("Aqui tienes la direccion MAC "+ props.dispositivoId)
+console.log("Aqui tienes el tipo "+JSON.stringify(props.conocidos[0][dispositivoId].type))
+console.log("Aqui tienes el owner "+JSON.stringify(props.conocidos[0][dispositivoId].owner))
+console.log("Aqui tienes lla localizacion "+JSON.stringify(props.conocidos[0][dispositivoId].location))
 
 const [selector, setSelector] = useState(conocidos[dispositivoId].type.toString().toLowerCase());
 const [location,setLocation] = useState(conocidos[dispositivoId].location);
 const [owner,setOwner] = useState(conocidos[dispositivoId].owner);
 const [allowed,setAllowed] = useState(conocidos[dispositivoId].allowed);
+useEffect(() => {
+    document.getElementById("imagen_dispositivo").src = require(`./static/images/${selector}.png`);
+}, [selector]);
+
+
+
 
 
 
@@ -215,9 +226,7 @@ function handleFormSubmit(event) {
     });
   }
 
-useEffect(() => {
-    document.getElementById("imagen_dispositivo").src = require(`./static/images/${selector}.png`);
-}, [selector]);
+
 
 const volver = () => {
     props.setLista(true)

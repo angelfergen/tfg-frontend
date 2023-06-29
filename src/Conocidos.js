@@ -15,6 +15,9 @@ export default function Conocidos (props) {
     const [selectConocidos, setSelectConocidos] =useState(null);
 
     const dispositivos = props.dipositivos;
+    const conocidos = props.conocidos;
+    const direccionesMAC = props.direccionesMAC;
+
     const datos_pruebas_todos = [
         {
             "hostnames": [
@@ -140,9 +143,8 @@ export default function Conocidos (props) {
             "allowed": "true"
         }
     }
-    const conocidos = props.conocidos;
+    
     //const conocidos = datos_pruebas_conocidos;
-    const direccionesMAC = props.direccionesMAC;
   
     useEffect(() => {
       if (loading) {
@@ -216,15 +218,14 @@ export default function Conocidos (props) {
 
         <div className="App">
             <header className="App-header">
-            {loading ? <div class="spinner-cajita">
+            {loading ? (<div class="spinner-cajita">
                     <div class="spinner-border" role="status">
                     </div>
                     <div class="spinner-texto">Analizando los dispositivos Conocidos</div>
-                  </div> : ( conocidos &&
-    <div>
+                  </div> ) : ( conocidos &&
+        <div>
                 <h3 id="cabecera_todos">Estos son los dispositivos conocidos </h3>
                 
-                {/*console.log("AQUI LOS CONOCIDOS BRRRRRR "+JSON.stringify(conocidos))*/}
                 {conocidos.map((objeto, index) => {
                     for (const direccionMAC in objeto) {
                         const informacion = objeto[direccionMAC];
@@ -238,27 +239,6 @@ export default function Conocidos (props) {
                     }
                 })}
 
-                {/*Object.values(conocidos).map(dispositivo => (
-                Object.entries(dispositivo).map(([direccionMAC, infoDispositivo]) => (
-                    console.log("AQUI TIENES EL DISPOSITIVO " + direccionMAC + ": " + JSON.stringify(infoDispositivo))
-                ))
-                ))*/}
-
-                <label for="filtro"> Filtrar </label>
-                <select id="selector" name="filtrado" onChange={e => filtrar(e.target.value)}>
-                    <option value="All">All</option>
-                        <optgroup label="Tipo">
-                            {Object.values(conocidos).map(dispositivo => (
-                            <option value={dispositivo.type}>{dispositivo.type}</option>
-                            ))}
-                        </optgroup>
-                        <optgroup label="Dueño">
-                            {Object.values(conocidos).map(dispositivo => (
-                            <option value={dispositivo.owner}>{dispositivo.owner}</option>
-                            ))}
-                        </optgroup>
-                </select>
-
                 <table class="table table-striped">
                 <thead>
                 <tr>
@@ -270,35 +250,30 @@ export default function Conocidos (props) {
                     <th scope="col">Borrar dispositivo</th>              
                 </tr>
                 </thead>
- 
-  <tbody>
-  {conocidos.map((objeto, index) => {
-    return Object.entries(objeto).map(([direccionMAC, informacion]) => (
-      <tr key={direccionMAC}>
-        <th scope="row">{index}</th>
-        <td>{direccionMAC}</td>
-        <td>{informacion.type}</td>
-        <td>{informacion.owner}</td>
-        <td>{informacion.location}</td>
-        <td>
-          <Button className="btn btn-secondary" id="modificar" type="submit" onClick={() => modificar(direccionMAC)}>Modificar Dispositivo</Button>
-        </td>
-        <td>
-          <form method="post" action={CONFIG.server_url_eliminar + transformarDirMac(direccionMAC)}>
-            {/*console.log(CONFIG.server_url_eliminar + transformarDirMac(direccionMAC))*/}
-            <Button className="btn btn-danger" id="borrar" type="submit">Borrar Dispositivo</Button>
-          </form>
-        </td>
-      </tr>
-    ));
-  })}
-</tbody>
-
-
-
-                    </table>
-                    <Button onClick={() => volver()}>Volver Atrás</Button>
-
+                <tbody>
+                {conocidos.map((objeto, index) => {
+                    return Object.entries(objeto).map(([direccionMAC, informacion]) => (
+                    <tr key={direccionMAC}>
+                        <th scope="row">{index}</th>
+                        <td>{direccionMAC}</td>
+                        <td>{informacion.type}</td>
+                        <td>{informacion.owner}</td>
+                        <td>{informacion.location}</td>
+                        <td>
+                        <Button className="btn btn-secondary" id="modificar" type="submit" onClick={() => modificar(direccionMAC)}>Modificar Dispositivo</Button>
+                        </td>
+                        <td>
+                        <form method="post" action={CONFIG.server_url_eliminar + transformarDirMac(direccionMAC)}>
+                            {/*console.log(CONFIG.server_url_eliminar + transformarDirMac(direccionMAC))*/}
+                            <Button className="btn btn-danger" id="borrar" type="submit">Borrar Dispositivo</Button>
+                        </form>
+                        </td>
+                    </tr>
+                    ));
+                })}
+                </tbody>
+                </table>
+                <Button onClick={() => volver()}>Volver Atrás</Button>
                 </div>
                 )}
             </header>
